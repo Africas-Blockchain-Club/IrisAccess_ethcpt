@@ -5,12 +5,7 @@ body {
   background-position: center; /* Center the image */
   margin: 0;
   padding: 0; /* Remove padding */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh; /* Full height of the viewport */
-  overflow: hidden; /* Prevent scrollbars */
+  overflow: auto; /* Allow scrolling */
 }
 
 h1 {
@@ -26,9 +21,8 @@ h1 {
   z-index: 1; /* Ensure video is above the background */
   max-height: 60vh; /* Limit height of container to fit viewport */
   justify-content: center; /* Center content vertically */
-  margin-top: 0.2px; /* Further reduced space above video container */
+  margin-top: 10px; /* Reduced space above video container */
 }
-
 
 #video {
   border: 2px solid #7ed957;
@@ -93,13 +87,4 @@ button {
 
 button:hover {
   background-color: #6bc446; /* Darker shade on hover */
-}
-
-@keyframes orbit {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
