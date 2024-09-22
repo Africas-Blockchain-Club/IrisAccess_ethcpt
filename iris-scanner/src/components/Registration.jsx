@@ -13,7 +13,7 @@ const Registration = () => {
     useEffect(() => {
         const initWeb3 = async () => {
             try {
-                const provider = Web3.givenProvider || "http://localhost:8545"; // Use provider
+                const provider = Web3.givenProvider || "https://ethereum-sepolia-rpc.publicnode.com"; // Use provider
                 const web3Instance = new Web3(provider);
                 setWeb3(web3Instance);
 

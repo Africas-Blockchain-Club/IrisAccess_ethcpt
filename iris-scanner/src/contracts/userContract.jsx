@@ -1,4 +1,4 @@
-import Web3 from 'web3';
+import web3 from 'web3';
 import contractABI from './contractABI.json'; 
 
 const userContract = (web3) => {
@@ -9,3 +9,4 @@ const userContract = (web3) => {
 };
 
 export default userContract;
+
