@@ -13,6 +13,7 @@ contract UserInfo {
 
     function getUserInfo() public view returns (string memory, string memory, uint256) {
         require(users[msg.sender].exists, "User not registered.");
+
         User memory user = users[msg.sender];
         return (user.name, user.userAddress, user.dateOfBirth);
     }
