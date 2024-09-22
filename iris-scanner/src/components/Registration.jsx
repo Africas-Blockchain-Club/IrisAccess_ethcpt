@@ -12,11 +12,17 @@ const Registration = () => {
 
     useEffect(() => {
         const initWeb3 = async () => {
-            const web3Instance = new Web3(Web3.givenProvider || "http://localhost:8545");
-            setWeb3(web3Instance);
+            try {
+                const provider = Web3.givenProvider || "http://localhost:8545"; // Use provider
+                const web3Instance = new Web3(provider);
+                setWeb3(web3Instance);
 
-            const contractInstance = userContract(web3Instance);
-            setContract(contractInstance);
+                const contractInstance = userContract(web3Instance);
+                console.log("Contract Instance:", contractInstance); // Log the contract instance
+                setContract(contractInstance);
+            } catch (error) {
+                setMessage("Failed to initialize Web3: " + error.message);
+            }
         };
         initWeb3();
     }, []);
@@ -24,11 +30,19 @@ const Registration = () => {
     const checkRegistration = async () => {
         if (!contract) return;
 
-        const accounts = await web3.eth.requestAccounts();
-        const registered = await contract.methods.isUserRegistered().call({ from: accounts[0] });
+        try {
+            const accounts = await web3.eth.requestAccounts();
+            if (accounts.length === 0) {
+                throw new Error("No accounts found. Please connect your wallet.");
+            }
+            const registered = await contract.methods.isUserRegistered().call({ from: accounts[0] });
 
-        if (registered) {
-            window.location.href = '/scanner'; // Redirect if already registered
+            if (registered) {
+                window.location.href = '/scanner'; // Redirect if already registered
+            }
+        } catch (error) {
+            console.error("Registration check error:", error); // Log the error
+            // setMessage("Failed to check registration: " + error.message);
         }
     };
 
@@ -42,22 +56,47 @@ const Registration = () => {
 
         try {
             const accounts = await web3.eth.requestAccounts();
+            if (accounts.length === 0) {
+                throw new Error("No accounts found. Please connect your wallet.");
+            }
             await contract.methods.registerUser(name, address, dobTimestamp).send({ from: accounts[0] });
             setMessage("Registration successful! Redirecting to the iris scanner...");
             setTimeout(() => {
                 window.location.href = '/scanner';
             }, 2000);
         } catch (error) {
-            setMessage("Registration failed: " + error.message);
+            console.error("Registration error:", error); // Log the error
+            if (error.code === 4001) {
+                setMessage("User denied transaction signature."); // MetaMask specific error
+            } else {
+                setMessage("Registration failed: " + error.message);
+            }
         }
     };
 
     return (
         <form onSubmit={handleSubmit}>
             <h1>User Registration</h1>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
-            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" required />
-            <input type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} required />
+            <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Name"
+                required
+            />
+            <input
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Address"
+                required
+            />
+            <input
+                type="date"
+                value={dateOfBirth}
+                onChange={(e) => setDateOfBirth(e.target.value)}
+                required
+            />
             <button type="submit">Register</button>
             <p>{message}</p>
         </form>
