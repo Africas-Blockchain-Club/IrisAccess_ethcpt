@@ -1,0 +1,105 @@
+body {
+  font-family: Arial, sans-serif;
+  background-image: url('/iris.jpg'); /* Your image path */
+  background-size: cover; /* Cover the entire viewport */
+  background-position: center; /* Center the image */
+  margin: 0;
+  padding: 0; /* Remove padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full height of the viewport */
+  overflow: hidden; /* Prevent scrollbars */
+}
+
+h1 {
+  color: #7ed957;
+  text-align: center;
+  margin-bottom: 20px; /* Space between heading and video */
+}
+
+
+.video-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the video and button */
+  z-index: 1; /* Ensure video is above the background */
+  max-height: 80vh; /* Limit height of container to fit viewport */
+  justify-content: center; /* Center content vertically */
+}
+
+#video {
+  border: 2px solid #7ed957;
+  border-radius: 8px;
+  margin-bottom: 15px; /* Space between video and button */
+  width: 300px; /* Adjust size if needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+#capture {
+  margin-top: 10px; /* Space between video and button */
+  padding: 15px 30px; /* Bigger button */
+  font-size: 18px; /* Larger font size */
+  color: #fff;
+  background-color: #7ed957;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+
+#capture:hover {
+  background-color: #6bc446; /* Darker shade on hover */
+}
+
+#canvas {
+  display: none;
+}
+
+form {
+  display: flex;
+  flex-direction: column; /* Stack inputs vertically */
+  align-items: center; /* Center form items */
+}
+
+input {
+  width: 300px; /* Wider input fields */
+  padding: 10px; /* More padding */
+  margin: 10px 0; /* Space between inputs */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input::placeholder {
+  color: black; /* Change to black */
+  opacity: 1; /* Ensures the color is fully opaque */
+}
+
+button {
+  padding: 15px 30px; /* Bigger button */
+  font-size: 18px; /* Larger font size */
+  color: #fff;
+  background-color: #7ed957;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 15px; /* Space above the button */
+}
+
+button:hover {
+  background-color: #6bc446; /* Darker shade on hover */
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+

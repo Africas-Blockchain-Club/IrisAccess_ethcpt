@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.0/web3.min.js"></script>
+</head>
+<body>
+    <h1>User Registration</h1>
+    <form id="registrationForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="text" id="address" placeholder="Address" required>
+        <input type="date" id="dateOfBirth" required>
+        <button type="submit">Register</button>
+    </form>
+    <p id="message"></p>
+
+    <script>
+        // Initialize Web3
+        const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+        const contractAddress = "YOUR_CONTRACT_ADDRESS"; // Replace with your contract address
+        const contractABI = [ /* Your contract ABI here */ ]; // Replace with your contract ABI
+        const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+        const form = document.getElementById('registrationForm');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const dateOfBirth = new Date(document.getElementById('dateOfBirth').value).getTime() / 1000;
+
+            try {
+                // Call the smart contract function to register the user
+                const accounts = await web3.eth.requestAccounts();
+                await contract.methods.registerUser(name, address, dateOfBirth).send({ from: accounts[0] });
+
+                document.getElementById('message').innerText = "Registration successful! Redirecting to the iris scanner...";
+                setTimeout(() => {
+                    window.location.href = "index.html"; // Redirect to iris scanner
+                }, 2000);
+            } catch (error) {
+                document.getElementById('message').innerText = "Registration failed: " + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
