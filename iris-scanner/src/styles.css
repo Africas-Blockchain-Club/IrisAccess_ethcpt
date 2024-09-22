@@ -16,24 +16,26 @@ body {
 h1 {
   color: #7ed957;
   text-align: center;
-  margin-bottom: 20px; /* Space between heading and video */
+  margin-bottom: 15px; /* Space between heading and inputs */
 }
-
 
 .video-container {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center the video and button */
   z-index: 1; /* Ensure video is above the background */
-  max-height: 80vh; /* Limit height of container to fit viewport */
+  max-height: 60vh; /* Limit height of container to fit viewport */
   justify-content: center; /* Center content vertically */
+  margin-top: 0.2px; /* Further reduced space above video container */
 }
+
 
 #video {
   border: 2px solid #7ed957;
   border-radius: 8px;
-  margin-bottom: 15px; /* Space between video and button */
-  width: 300px; /* Adjust size if needed */
+  margin-bottom: 10px; /* Space between video and button */
+  width: 100%; /* Full width of the container */
+  max-width: 360px; /* Limit max width */
   height: auto; /* Maintain aspect ratio */
 }
 
@@ -49,7 +51,6 @@ h1 {
   transition: background-color 0.3s;
 }
 
-
 #capture:hover {
   background-color: #6bc446; /* Darker shade on hover */
 }
@@ -62,6 +63,7 @@ form {
   display: flex;
   flex-direction: column; /* Stack inputs vertically */
   align-items: center; /* Center form items */
+  margin-bottom: 20px; /* Space below the form */
 }
 
 input {
@@ -101,5 +103,3 @@ button:hover {
     transform: rotate(360deg);
   }
 }
-
-
